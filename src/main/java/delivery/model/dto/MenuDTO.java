@@ -10,23 +10,23 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MenuDTO {
-	private int food_price;
+
 	private String diner_id;
-	private String menu;
+	private String menu_name;
+	private String food_price;
 	
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
+
 		builder.append("FoodDTO [food_price=");
 		builder.append(food_price);
 		builder.append(", diner_id=");
 		builder.append(diner_id);
 		builder.append(", menu=");
-		builder.append(menu);
+		builder.append(menu_name);
 		builder.append("]");
 		return builder.toString();
 	}
 		
-	
-	
-}	
+}
