@@ -11,6 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CustomerDTO {
 	private String user_id;
+	private String user_pw;
 	private String user_name;
 	private String user_loc;
 	private String user_mobile;
@@ -20,6 +21,8 @@ public class CustomerDTO {
 		StringBuilder builder = new StringBuilder();
 		builder.append("CustomerDTO [user_id=");
 		builder.append(user_id);
+		builder.append(", user_pw=");
+		builder.append(user_pw);
 		builder.append(", user_name=");
 		builder.append(user_name);
 		builder.append(", user_loc=");
@@ -29,6 +32,5 @@ public class CustomerDTO {
 		builder.append("]");
 		return builder.toString();
 	}
-	
 	
 }
