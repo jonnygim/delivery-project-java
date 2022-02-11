@@ -25,10 +25,10 @@
 			</thead>
 			
 		 	<tbody>
-				
+			
 			<c:forEach items="${requestScope.deliveryProjectInfo}" var="dataAll"> 
 		 		<tr>
-		 		<th>매장 이름</th>
+		 			<th>매장 이름</th>
 			 		<td>
 			 		${dataAll.diner_name}
 		 			</td>
@@ -43,10 +43,7 @@
 		 		</tr>
 		 		
 		 	</c:forEach>
-		 
-		 	
 			</tbody>
-		 	
 		</table>
 		
 		<input type="submit" value="order">
