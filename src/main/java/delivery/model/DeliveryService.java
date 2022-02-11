@@ -23,8 +23,8 @@ public class DeliveryService {
 		}
 	
 	//음식 검색	
-		public static MenuDTO getMenu(String diner_id) throws SQLException,NotExistException{
-			MenuDTO menu_name = MenuDAO.getMenu(diner_id);
+		public static ArrayList<MenuDTO> getMenu(String diner_id) throws SQLException,NotExistException{
+			ArrayList<MenuDTO> menu_name = MenuDAO.getMenu(diner_id);
 			if(menu_name == null){
 				throw new NotExistException("검색하는 음식이 미 존재합니다.");
 			}
