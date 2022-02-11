@@ -29,7 +29,9 @@
 			<c:forEach items="${requestScope.dinerInfoAll}" var="dataAll"> 
 		 		<tr>
 		 		<td>
-		 		<a href='/delivery?command=dinerInfoAll'>${dataAll.diner_name}</a>
+			 		<a href='delivery?command=menuInfo&diner_id=${dataAll.diner_id}'>
+			 			${dataAll.diner_name}
+			 		</a>
 		 		</td>
 		 		<td>
 		 		${dataAll.diner_loc}

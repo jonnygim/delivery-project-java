@@ -27,9 +27,6 @@ public class DeliveryController extends HttpServlet {
 		String command = request.getParameter("command");
 
 		try {
-
-			
-
 			if (command.equals("dinerInfoAll")) {
 				dinerInfoAll(request, response);
 			} else if (command.equals("menuInfo")) {
@@ -97,9 +94,10 @@ public class DeliveryController extends HttpServlet {
 	public void menuInfo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String url = "showError.jsp";
+		System.out.println("menuInfo----------");
 		try {
 			request.setAttribute("menuInfo", DeliveryService.getMenu(request.getParameter("diner_id")));
-			url = "menuInfo.jsp";
+			url = "menu.jsp";
 		} catch (Exception s) {
 			request.setAttribute("errorMsg", s.getMessage());
 		}
