@@ -17,8 +17,9 @@ public class CustomerDAO {
 		PreparedStatement pstmt = null;
 		try{
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement("insert into customer values(?, ?, ?, ?)");
+			pstmt = con.prepareStatement("insert into customer values(?, ?, ?, ?, ?)");
 			pstmt.setString(1, customer.getUser_id());
+			pstmt.setString(1, customer.getUser_pw());
 			pstmt.setString(2, customer.getUser_name());
 			pstmt.setString(3, customer.getUser_loc());
 			pstmt.setString(4, customer.getUser_mobile());
@@ -46,7 +47,7 @@ public class CustomerDAO {
 					pstmt.setString(1, user_id);
 					rset = pstmt.executeQuery();
 					if(rset.next()){
-						activist = new CustomerDTO(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4));
+						activist = new CustomerDTO(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getString(5));
 					}
 				}finally{
 					DBUtil.close(con, pstmt, rset);
@@ -93,6 +94,28 @@ public class CustomerDAO {
 					DBUtil.close(con, pstmt);
 				}
 				return false;
+			}
+			
+			//모든 회원 검색해서 반환
+			//sql - select * from customer
+			public static ArrayList<CustomerDTO> getAllCustomers() throws SQLException{
+				Connection con = null;
+				PreparedStatement pstmt = null;
+				ResultSet rset = null;
+				ArrayList<CustomerDTO> list = null;
+				try{
+					con = DBUtil.getConnection();
+					pstmt = con.prepareStatement("select * from customer");
+					rset = pstmt.executeQuery();
+					
+					list = new ArrayList<CustomerDTO>();
+					while(rset.next()){
+						list.add(new CustomerDTO(rset.getString(1), rset.getString(2), rset.getString(3), rset.getString(4), rset.getString(5)));
+					}
+				}finally{
+					DBUtil.close(con, pstmt, rset);
+				}
+				return list;
 			}
 
 		
