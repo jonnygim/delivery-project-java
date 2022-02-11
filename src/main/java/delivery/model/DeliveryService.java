@@ -3,11 +3,12 @@ package delivery.model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import delivery.exception.MessageException;
 import delivery.exception.NotExistException;
 import delivery.model.dto.CustomerDTO;
+import delivery.model.dto.DeliveryProjectDTO;
 import delivery.model.dto.DinerDTO;
 import delivery.model.dto.MenuDTO;
-import delivery.exception.MessageException;
 
 
 
@@ -79,6 +80,14 @@ public class DeliveryService {
 				throw new NotExistException("검색하는 회원이 미 존재합니다.");
 			}
 			return customer;
+		}
+
+		public static ArrayList<DeliveryProjectDTO> getDeliveryProject(String diner_id) throws SQLException, NotExistException{
+			ArrayList<DeliveryProjectDTO> deliveryProject = DeliveryProjectDAO.getAllDeliveryProject(diner_id);
+			if(deliveryProject == null){
+				throw new NotExistException("주문내역이 미 존재합니다.");
+			}
+			return deliveryProject;
 		}
 		
 }

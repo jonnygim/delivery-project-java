@@ -37,8 +37,14 @@ public class DeliveryController extends HttpServlet {
 				customerDelete(request, response);
 			} else if (command.equals("customerUpdate")) {
 				customerUpdate(request, response);
+			} else if (command.equals("customerInfo")) {
+				getCustomer(request, response);
 			} else if (command.equals("userLogin")) {
 				userLogin(request, response);
+			} else if (command.equals("deliveryProjectInfo")) {
+				deliveryProjectInfo(request, response);
+			} else if (command.equals("success")) {
+				orderSuccess(request, response);
 			}
 		} catch (Exception s) {
 			request.setAttribute("errorMsg", s.getMessage());
@@ -48,6 +54,10 @@ public class DeliveryController extends HttpServlet {
 
 	}
 	
+	private void orderSuccess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		response.sendRedirect("succ");
+	}
+
 	// 로그인
 	public void userLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		String user_id = request.getParameter("user_id");
@@ -167,4 +177,31 @@ public class DeliveryController extends HttpServlet {
 		}
 		request.getRequestDispatcher(url).forward(request, response);
 	}
+	
+	public void getCustomer(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String url = "showError.jsp";
+		try {
+			request.setAttribute("customer", DeliveryService.getCustomer(request.getParameter("user_id")));
+			url = "orderList.jsp";
+		} catch (Exception s) {
+			request.setAttribute("errorMsg", s.getMessage());
+		}
+		request.getRequestDispatcher(url).forward(request, response);
+	}
+	
+	// 
+	public void deliveryProjectInfo(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		String url = "showError.jsp";
+		System.out.println("deliveryInfo----------");
+		try {
+			request.setAttribute("deliveryProjectInfo", DeliveryService.getDeliveryProject(request.getParameter("diner_id")));
+			url = "orderList.jsp";
+		} catch (Exception s) {
+			request.setAttribute("errorMsg", s.getMessage());
+		}
+		request.getRequestDispatcher(url).forward(request, response);
+	}
+	
 }
