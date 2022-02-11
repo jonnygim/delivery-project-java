@@ -1,7 +1,6 @@
 package delivery.controller;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,16 +9,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import delivery.exception.NotExistException;
 import delivery.model.DeliveryService;
 import delivery.model.dto.CustomerDTO;
 
 @WebServlet("/delivery")
 public class DeliveryController extends HttpServlet {
-	public DeliveryController() {
-
-	}
-
+	
 	protected void service(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
@@ -37,8 +32,6 @@ public class DeliveryController extends HttpServlet {
 				customerDelete(request, response);
 			} else if (command.equals("customerUpdate")) {
 				customerUpdate(request, response);
-			} else if (command.equals("customerInfo")) {
-				getCustomer(request, response);
 			} else if (command.equals("userLogin")) {
 				userLogin(request, response);
 			} else if (command.equals("deliveryProjectInfo")) {
@@ -51,11 +44,6 @@ public class DeliveryController extends HttpServlet {
 			request.getRequestDispatcher("showError.jsp").forward(request, response);
 			s.printStackTrace();
 		}
-
-	}
-	
-	private void orderSuccess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
-		response.sendRedirect("succ");
 	}
 
 	// 로그인
@@ -178,19 +166,7 @@ public class DeliveryController extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 	
-	public void getCustomer(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		String url = "showError.jsp";
-		try {
-			request.setAttribute("customer", DeliveryService.getCustomer(request.getParameter("user_id")));
-			url = "orderList.jsp";
-		} catch (Exception s) {
-			request.setAttribute("errorMsg", s.getMessage());
-		}
-		request.getRequestDispatcher(url).forward(request, response);
-	}
-	
-	// 
+	// 주문내역 불러오기
 	public void deliveryProjectInfo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String url = "showError.jsp";
@@ -204,4 +180,20 @@ public class DeliveryController extends HttpServlet {
 		request.getRequestDispatcher(url).forward(request, response);
 	}
 	
+	public void deliveryProjectInfo2(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+		String url = "showError.jsp";
+		System.out.println("deliveryInfo2----------");
+		HttpSession session = request.getSession();
+		try {
+			request.setAttribute("customerInfo", DeliveryService.getCustomer(request.getParameter(session.getId())));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	// 주문 성공
+	private void orderSuccess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+		response.sendRedirect("succ");
+	}
 }
